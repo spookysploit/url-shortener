@@ -1,14 +1,16 @@
 env: "local"
 
-postgres:
-  host: localhost
-  port: 5432
-  dbname: "url-shortener_db"
-  user: "url-shortener_user"
-  password: "url-shortener_pass"
-  sslmode: "disable"
-
 http_server:
   address: "localhost:8080"
   timeout: 4s
   idle_timeout: 60s
+  user: my_user
+  password: my_password
+
+postgres:
+  host: localhost
+  port: 5432
+  user: "url-shortener_user"
+  password: "url-shortener_pass"
+  dbname: "url-shortener_db"
+  sslmode: "disable"
