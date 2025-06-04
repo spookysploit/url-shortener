@@ -31,3 +31,25 @@ docker compose up --build
 ```
 После чего сервис будет доступен по адресу:
 __http://localhost:8080/__
+
+---
+
+## Использование
+Для того чтобы сократить ссылку используйте команду:
+```
+curl -X POST -d '{"url": "https://example.com/", "alias":"example"}' http://my_user:my_password@localhost:8080/url
+```
+Правильный вывод команды:
+{"status":"OK","alias":"example"}
+
+Сокращенная ссылка будет выглядеть так: 
+http://localhost:8080/example
+
+Если ссылка с таким алиасом уже существует то в ответе будет ошибка:
+{"status":"Error","error":"url already exists"}
+
+При переходе по сокращенной ссылке получаем:
+```
+curl http://localhost:8080/example
+```
+<a href="https://example.com/">Found</a>.
