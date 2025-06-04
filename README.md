@@ -20,3 +20,11 @@
 docker compose up --build
 Приложение будет доступно по адресу:
 http://localhost:8080
+
+
+<details> <summary>💡 Пример команды для `ffuf`</summary>
+bash
+Копировать
+Редактировать
+ffuf -w /path/to/vhost/wordlist -u https://target -H "Host: FUZZ" -fs 4242
+</details>
