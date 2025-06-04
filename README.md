@@ -39,17 +39,22 @@ __http://localhost:8080/__
 ```
 curl -X POST -d '{"url": "https://example.com/", "alias":"example"}' http://my_user:my_password@localhost:8080/url
 ```
-Правильный вывод команды:\
+Правильный вывод команды:
+```
 {"status":"OK","alias":"example"}
-
-Сокращенная ссылка будет выглядеть так:\ 
+```
+Сокращенная ссылка будет выглядеть так:
+```
 http://localhost:8080/example
-
-Если ссылка с таким алиасом уже существует то в ответе будет ошибка:\
+```
+Если ссылка с таким алиасом уже существует то в ответе будет ошибка:
+```
 {"status":"Error","error":"url already exists"}
-
+```
 При переходе по сокращенной ссылке получаем:
 ```
 curl http://localhost:8080/example
 ```
+```
 <a href="https://example.com/">Found</a>.
+```
