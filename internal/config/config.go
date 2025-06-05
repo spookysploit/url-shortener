@@ -31,6 +31,13 @@ type Config struct {
 	Postgres   PostgresConfig   `yaml:"postgres"`
 }
 
+type Client struct {
+	Address      string        `yaml:"address"`
+	Timeout      time.Duration `yaml:"timeout"`
+	retriesCount int           `yaml:"retriesCount"`
+	Insecure     bool          `yaml:"insecure"`
+}
+
 func MustLoad() *Config {
 	configPath := "./config/local.yaml"
 
