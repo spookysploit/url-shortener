@@ -1,12 +1,14 @@
 package main
 
 import (
+	"context"
 	"log/slog"
 	"net/http"
 	"os"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	ssogrpc "github.com/spookysploit/url-shortener/internal/clients/sso/grpc"
 	"github.com/spookysploit/url-shortener/internal/config"
 	"github.com/spookysploit/url-shortener/internal/http-server/handlers/redirect"
 	"github.com/spookysploit/url-shortener/internal/http-server/handlers/url/save"
@@ -24,13 +26,25 @@ func main() {
 
 	log := setupLogger(cfg.Env)
 
+	ssoClient, err := ssogrpc.New(
+		context.Background(),
+		log,
+		cfg.Clients.SSO.Address,
+		cfg.Clients.SSO.Timeout,
+		cfg.Clients.SSO.RetriesCount,
+	)
+	if err != nil {
+		log.Error("failed to init sso client", slog.String("error", err.Error()))
+		os.Exit(1)
+	}
+
+	ssoClient.IsAdmin(context.Background(), 1)
+
 	storage, err := postgresql.New(cfg.Postgres.ConnString())
 	if err != nil {
 		log.Error("failed to connect to database", slog.String("error", err.Error()))
 		os.Exit(1)
 	}
-
-	_ = storage
 
 	router := chi.NewRouter()
 

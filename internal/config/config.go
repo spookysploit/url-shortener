@@ -29,13 +29,19 @@ type Config struct {
 	Env        string           `yaml:"env"`
 	HTTPServer HTTPServerConfig `yaml:"http_server"`
 	Postgres   PostgresConfig   `yaml:"postgres"`
+	Clients    ClientsConfig    `yaml:"clients"`
+	AppSecret  string           `yaml:"app_secret"`
 }
 
 type Client struct {
 	Address      string        `yaml:"address"`
 	Timeout      time.Duration `yaml:"timeout"`
-	retriesCount int           `yaml:"retriesCount"`
+	RetriesCount int           `yaml:"retriesCount"`
 	Insecure     bool          `yaml:"insecure"`
+}
+
+type ClientsConfig struct {
+	SSO Client `yaml:"sso"`
 }
 
 func MustLoad() *Config {
